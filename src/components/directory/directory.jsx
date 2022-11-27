@@ -2,7 +2,7 @@ import CategoryItem from "../CategoryItem/CategoryItem";
 import "./directory.scss";
 
 
-export default function Directory({ categories}) {
+export default function Directory({categories}) {
 
     return (
         <div className='categories-container'>

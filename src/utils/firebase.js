@@ -4,6 +4,7 @@ import {
   signInWithRedirect,
   signInWithPopup,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
   GoogleAuthProvider,
 } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
@@ -69,4 +70,14 @@ export const createUserAccountWithEmailAndPassword = async (
     return;
   }
   return await createUserWithEmailAndPassword(auth, email, password);
+};
+
+export const singInUserAccountWithEmailAndPassword = async (
+  email,
+  password
+) => {
+  if (!email || !password) {
+    return;
+  }
+  return await signInWithEmailAndPassword(auth, email, password);
 };

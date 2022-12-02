@@ -39,14 +39,13 @@ function SingUpForm(props) {
       return;
     }
     try {
-      const response = await createUserAccountWithEmailAndPassword(
+      const { user } = await createUserAccountWithEmailAndPassword(
         email,
         password
       );
-      await createUserProfileDocument(response.user, {
+      await createUserProfileDocument(user, {
         displayName,
       });
-      console.log(response);
       resetFormFields();
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {

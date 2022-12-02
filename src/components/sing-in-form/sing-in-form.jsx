@@ -1,17 +1,15 @@
-import React from "react";
+import { useState } from "react";
 //components
-
 import FormInput from "../form-input/form-input";
 import Button from "../button/button";
 //styles
 import "./sing-in-form.scss";
-
 //utils
 import {
   singInUserAccountWithEmailAndPassword,
-  createUserProfileDocument,
   signInWithGooglePopup,
 } from "../../utils/firebase";
+//context
 
 const defaultFormFields = {
   email: "",
@@ -19,12 +17,11 @@ const defaultFormFields = {
 };
 
 function SingInForm(props) {
-  const [formFields, setFormFields] = React.useState(defaultFormFields);
+  const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
   const singInWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup();
-    await createUserProfileDocument(user);
+    await signInWithGooglePopup();
   };
 
   const resetFormFields = () => {
@@ -39,11 +36,7 @@ function SingInForm(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await singInUserAccountWithEmailAndPassword(
-        email,
-        password
-      );
-      console.log(response);
+      await singInUserAccountWithEmailAndPassword(email, password);
       resetFormFields();
     } catch (error) {
       if (error.code === "auth/wrong-password") {
@@ -67,7 +60,7 @@ function SingInForm(props) {
             onChange: handleChange,
             value: email,
             name: "email",
-            required: "true",
+            required: true,
             type: "email",
           }}
         />
@@ -78,7 +71,7 @@ function SingInForm(props) {
             onChange: handleChange,
             value: password,
             name: "password",
-            required: "true",
+            required: true,
             type: "password",
           }}
         />

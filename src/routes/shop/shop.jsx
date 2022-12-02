@@ -1,7 +1,14 @@
 import React from "react";
+import SHOP_DATA from "../../shop-data/shop-data.json";
 
 function Shop(props) {
-  return <div> I am the best shop ever!</div>;
+  return (
+    <div>
+      {SHOP_DATA.map(({ id, name }) => {
+        return <h1 key={id}>{name}</h1>;
+      })}
+    </div>
+  );
 }
 
 export default Shop;

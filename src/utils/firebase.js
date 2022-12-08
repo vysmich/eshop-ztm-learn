@@ -60,7 +60,7 @@ export const createUserProfileDocument = async (
     }
   }
   if (snapShot.exists()) {
-    console.log("user already exists");
+    // console.log("user already exists");
   }
 };
 

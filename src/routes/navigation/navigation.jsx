@@ -10,43 +10,42 @@ import { signOutUserAccount } from "../../utils/firebase";
 import { UserContext } from "../../context/user.context";
 import { CartContext } from "../../context/cart.context";
 //styles
-import "./navigation.scss";
+import { NavigationContainer, LogoContainer, NavLinks, NavLink } from "./navigation.style";
 
 const Navigation = () => {
-  const { currentUser } = useContext(UserContext);
-  const { isCartOpen, setIsCartOpen } = useContext(CartContext);
+    const { currentUser } = useContext(UserContext);
+    console.log("🚀 ~ file: navigation.jsx:17 ~ Navigation ~ currentUser", currentUser);
+    const { isCartOpen, setIsCartOpen } = useContext(CartContext);
+    console.log("isCartOpen", isCartOpen);
+    console.log("Navigation ~ isCartOpen", isCartOpen);
 
-  const singOutHandler = async () => {
-    await signOutUserAccount();
-  };
+    const singOutHandler = async () => {
+        await signOutUserAccount();
+    };
 
-  return (
-    <Fragment>
-      <div className="navigation">
-        <Link className="logo-container" to="/">
-          <CrwnLogo className="logo" />
-        </Link>
-        <a href="http://"></a>
-        <div className="nav-links-container">
-          <Link className="nav-link" to="/shop">
-            SHOP
-          </Link>
-          {currentUser ? (
-            <span className="nav-link" onClick={singOutHandler}>
-              SIGN OUT
-            </span>
-          ) : (
-            <Link className="nav-link" to="/auth">
-              SIGN IN
-            </Link>
-          )}
-          <CartIcon />
-        </div>
-        {isCartOpen && <CartDropdown />}
-      </div>
-      <Outlet />
-    </Fragment>
-  );
+    return (
+        <>
+            <NavigationContainer>
+                <LogoContainer to='/'>
+                    <CrwnLogo />
+                </LogoContainer>
+                <NavLinks>
+                    <NavLink to='/shop'>SHOP</NavLink>
+
+                    {currentUser ? (
+                        <NavLink as='span' onClick={singOutHandler}>
+                            SIGN OUT
+                        </NavLink>
+                    ) : (
+                        <NavLink to='/auth'>SIGN IN</NavLink>
+                    )}
+                    <CartIcon />
+                </NavLinks>
+                {isCartOpen && <CartDropdown />}
+            </NavigationContainer>
+            <Outlet />
+        </>
+    );
 };
 
 export default Navigation;

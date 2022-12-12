@@ -12,7 +12,6 @@ function ProductCard({ product }) {
     const { name, price, imageUrl } = product;
     const handleClick = () => {
         addItemToCart(product);
-        console.log(product);
     };
     return (
         <ProductCartContainer>

@@ -10,7 +10,6 @@ import { CartDropdownContainer, EmptyMessage, CartItems } from "./cart-dropdown-
 
 function CartDropdown(props) {
     const { cartItems } = useContext(CartContext);
-    console.log(cartItems);
     return (
         <CartDropdownContainer>
             <CartItems>{cartItems.length ? cartItems.map((cartItem) => <CartItem key={cartItem.id} cartItem={cartItem} />) : <EmptyMessage>Your cart is empty</EmptyMessage>}</CartItems>

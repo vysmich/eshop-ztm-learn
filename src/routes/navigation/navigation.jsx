@@ -14,10 +14,7 @@ import { NavigationContainer, LogoContainer, NavLinks, NavLink } from "./navigat
 
 const Navigation = () => {
     const { currentUser } = useContext(UserContext);
-    console.log("🚀 ~ file: navigation.jsx:17 ~ Navigation ~ currentUser", currentUser);
     const { isCartOpen, setIsCartOpen } = useContext(CartContext);
-    console.log("isCartOpen", isCartOpen);
-    console.log("Navigation ~ isCartOpen", isCartOpen);
 
     const singOutHandler = async () => {
         await signOutUserAccount();

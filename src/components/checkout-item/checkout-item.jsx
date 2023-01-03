@@ -7,10 +7,10 @@ import { CheckoutItemContainer, ImageContainer, BaseSpan, Quantity, Arrow, Value
 function CheckoutItem({ cartItem }) {
     const { name, imageUrl, price, quantity } = cartItem;
 
-    const { addItemToCart, clearItemFromCart, removeItemFromCart } = useContext(CartContext);
+    const { addItemToCart, clearItemFromCart, removeItemToCart } = useContext(CartContext);
 
     const removeItemHandler = () => {
-        removeItemFromCart(cartItem);
+        removeItemToCart(cartItem);
     };
 
     const addItemHandler = () => {

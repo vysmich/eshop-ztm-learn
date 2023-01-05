@@ -12,13 +12,12 @@ import { CartDropdownContainer, EmptyMessage, CartItems } from "./cart-dropdown-
 
 function CartDropdown(props) {
     const cartItems = useSelector(selectCartItems);
-    console.log("cartItems", cartItems);
 
     return (
         <CartDropdownContainer>
             <CartItems>{cartItems.length ? cartItems.map((cartItem) => <CartItem key={cartItem.id} cartItem={cartItem} />) : <EmptyMessage>Your cart is empty</EmptyMessage>}</CartItems>
             <Link to={"/checkout"}>
-                <Button>GO TO CHECKOUT</Button>
+                <Button>CHECKOUT</Button>
             </Link>
         </CartDropdownContainer>
     );

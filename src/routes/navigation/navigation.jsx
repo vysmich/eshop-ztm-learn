@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 //selectors
 import { selectIsCartOpen } from "./../../store/cart/cart-selector";
 //styles
-import { NavigationContainer, LogoContainer, NavLinks, NavLink } from "./navigation.style";
+import { NavigationContainer, LogoContainer, NavLinks, NavLink } from "./navigation-style";
 
 const Navigation = () => {
     const currentUser = useSelector((state) => state.user.currentUser);

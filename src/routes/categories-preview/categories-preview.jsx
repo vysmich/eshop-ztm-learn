@@ -8,6 +8,7 @@ import { selectCategoriesMap } from "../../store/categories/categories-selector"
 
 export function CategoriesPreview({}) {
     const categoriesMap = useSelector(selectCategoriesMap);
+    console.log("categoriesMap", categoriesMap);
 
     return (
         <div className='category-preview-container'>

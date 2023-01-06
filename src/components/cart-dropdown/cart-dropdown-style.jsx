@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import Button from "../button/button";
 
@@ -16,8 +17,12 @@ export const CartDropdownContainer = styled.div`
     z-index: 5;
 
     ${Button} {
-        margin-top: auto;
+        margin: 0 auto;
     }
+`;
+
+export const CartDropdownLink = styled(Link)`
+    margin: 0 auto;
 `;
 
 export const EmptyMessage = styled.span`
@@ -29,5 +34,5 @@ export const CartItems = styled.div`
     height: 240px;
     display: flex;
     flex-direction: column;
-    overflow: scroll;
+    overflow: auto;
 `;

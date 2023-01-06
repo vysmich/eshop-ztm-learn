@@ -2,11 +2,11 @@ import React from "react";
 //styles
 import { FormInputLabel, Input, Group } from "./form-input-style";
 
-export default function FormInput({ label, inputOptions }) {
+export default function FormInput({ label, ...otherProps }) {
     return (
         <Group>
-            <Input {...inputOptions} />
-            {label ? <FormInputLabel shrink={inputOptions.value.length}>{label}</FormInputLabel> : null}
+            <Input {...otherProps} />
+            {label && <FormInputLabel shrink={otherProps.value.length}>{label}</FormInputLabel>}
         </Group>
     );
 }

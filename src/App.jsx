@@ -8,20 +8,15 @@ import Shop from "./routes/shop/shop";
 import Authentication from "./routes/authentication/authentication";
 import Checkout from "./routes/checkout/checkout";
 //firebase
-import { createUserProfileDocument, onAuthStateChangedListener } from "./utils/firebase";
+import { getCurrentUser } from "./utils/firebase";
 //redux actions
-import { setCurrentUser } from "./store/user/user-actions";
+import { checkUserSession } from "./store/user/user-actions";
 
 function App() {
     const dispatch = useDispatch();
+
     useEffect(() => {
-        const unsubscribe = onAuthStateChangedListener((user) => {
-            if (user) {
-                createUserProfileDocument(user);
-            }
-            dispatch(setCurrentUser(user));
-        });
-        return unsubscribe;
+        dispatch(checkUserSession());
     }, []);
 
     return (

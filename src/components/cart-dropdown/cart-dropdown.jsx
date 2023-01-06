@@ -8,17 +8,28 @@ import { selectCartItems } from "../../store/cart/cart-selector";
 //hooks
 import { useSelector } from "react-redux";
 //styles
-import { CartDropdownContainer, EmptyMessage, CartItems } from "./cart-dropdown-style";
+import {
+    CartDropdownContainer,
+    EmptyMessage,
+    CartItems,
+    CartDropdownLink,
+} from "./cart-dropdown-style";
 
 function CartDropdown(props) {
     const cartItems = useSelector(selectCartItems);
 
     return (
         <CartDropdownContainer>
-            <CartItems>{cartItems.length ? cartItems.map((cartItem) => <CartItem key={cartItem.id} cartItem={cartItem} />) : <EmptyMessage>Your cart is empty</EmptyMessage>}</CartItems>
-            <Link to={"/checkout"}>
+            <CartItems>
+                {cartItems.length ? (
+                    cartItems.map((cartItem) => <CartItem key={cartItem.id} cartItem={cartItem} />)
+                ) : (
+                    <EmptyMessage>Your cart is empty</EmptyMessage>
+                )}
+            </CartItems>
+            <CartDropdownLink to={"/checkout"}>
                 <Button>CHECKOUT</Button>
-            </Link>
+            </CartDropdownLink>
         </CartDropdownContainer>
     );
 }

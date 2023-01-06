@@ -7,19 +7,21 @@ import CartDropdown from "../../components/cart-dropdown/cart-dropdown";
 //utils
 import { signOutUserAccount } from "../../utils/firebase";
 // hooks
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 //selectors
 import { selectIsCartOpen } from "./../../store/cart/cart-selector";
+import { selectCurrentUser } from "../../store/user/user-selector";
+//actions
+import { signOutStart } from "./../../store/user/user-actions";
 //styles
-import { NavigationContainer, LogoContainer, NavLinks, NavLink } from "./navigation-style";
+import { NavigationContainer, LogoContainer, NavLinks, NavLink } from "./navigation.style";
 
 const Navigation = () => {
-    const currentUser = useSelector((state) => state.user.currentUser);
+    const dispatch = useDispatch();
+    const currentUser = useSelector(selectCurrentUser);
     const isCartOpen = useSelector(selectIsCartOpen);
 
-    const singOutHandler = async () => {
-        await signOutUserAccount();
-    };
+    const singOutHandler = () => dispatch(signOutStart());
 
     return (
         <>

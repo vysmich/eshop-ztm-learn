@@ -1,12 +1,11 @@
-import React from "react";
-//components
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import FormInput from "../form-input/form-input";
 import Button from "../button/button";
-//utils
-import { createUserAccountWithEmailAndPassword, createUserProfileDocument } from "../../utils/firebase";
-//styles
+
 import { SignUpContainer } from "./sing-up-form-style";
+import { signUpStart } from "../../store/user/user-actions";
 
 const defaultFormFields = {
     displayName: "",
@@ -15,94 +14,85 @@ const defaultFormFields = {
     confirmPassword: "",
 };
 
-function SingUpForm(props) {
-    const [formFields, setFormFields] = React.useState(defaultFormFields);
+const SignUpForm = () => {
+    const [formFields, setFormFields] = useState(defaultFormFields);
     const { displayName, email, password, confirmPassword } = formFields;
+    const dispatch = useDispatch();
 
     const resetFormFields = () => {
         setFormFields(defaultFormFields);
     };
 
-    const handleChange = (event) => {
-        const { name } = event.target;
-        setFormFields({ ...formFields, [name]: event.target.value });
-    };
-
     const handleSubmit = async (event) => {
         event.preventDefault();
+
         if (password !== confirmPassword) {
-            alert("Password don't match");
+            alert("passwords do not match");
             return;
         }
+
         try {
-            const { user } = await createUserAccountWithEmailAndPassword(email, password);
-            await createUserProfileDocument(user, {
-                displayName,
-            });
+            dispatch(signUpStart(email, password, displayName));
             resetFormFields();
         } catch (error) {
             if (error.code === "auth/email-already-in-use") {
-                alert("Email already in use");
+                alert("Cannot create user, email already in use");
             } else {
-                console.log("user creation error", error);
+                console.log("user creation encountered an error", error);
             }
         }
     };
 
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+
+        setFormFields({ ...formFields, [name]: value });
+    };
+
     return (
         <SignUpContainer>
-            <h2>Don´t have an account?</h2>
-            <span>Sing up with your email and password</span>
+            <h2>Don't have an account?</h2>
+            <span>Sign up with your email and password</span>
             <form onSubmit={handleSubmit}>
                 <FormInput
                     label='Display Name'
-                    inputOptions={{
-                        onChange: handleChange,
-                        value: displayName,
-                        name: "displayName",
-                        required: "true",
-                        type: "text",
-                    }}
+                    type='text'
+                    required
+                    onChange={handleChange}
+                    name='displayName'
+                    value={displayName}
                 />
 
                 <FormInput
-                    label={"Email"}
-                    inputOptions={{
-                        onChange: handleChange,
-                        value: email,
-                        name: "email",
-                        required: "true",
-                        type: "email",
-                    }}
+                    label='Email'
+                    type='email'
+                    required
+                    onChange={handleChange}
+                    name='email'
+                    value={email}
                 />
 
                 <FormInput
-                    label={"Password"}
-                    inputOptions={{
-                        onChange: handleChange,
-                        value: password,
-                        name: "password",
-                        required: "true",
-                        type: "password",
-                    }}
+                    label='Password'
+                    type='password'
+                    required
+                    onChange={handleChange}
+                    name='password'
+                    value={password}
                 />
 
                 <FormInput
-                    label={"Confirm Password"}
-                    s
-                    inputOptions={{
-                        onChange: handleChange,
-                        value: confirmPassword,
-                        name: "confirmPassword",
-                        required: "true",
-                        type: "password",
-                    }}
+                    label='Confirm Password'
+                    type='password'
+                    required
+                    onChange={handleChange}
+                    name='confirmPassword'
+                    value={confirmPassword}
                 />
-
-                <Button type='submit'>Sing Up</Button>
+                <Button type='submit'>Sign Up</Button>
             </form>
         </SignUpContainer>
     );
-}
+};
 
-export default SingUpForm;
+export default SignUpForm;
